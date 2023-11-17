@@ -79,7 +79,7 @@ public class JSONInteger {
   /**
    * Get the underlying value.
    */
-  public Object getValue() {
+  public BigInteger getValue() {
     return this.value;
   } // getValue()
 
