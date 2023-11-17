@@ -12,17 +12,17 @@ public interface JSONValue {
   /**
    * Convert to a string (e.g., for printing).
    */
-  public String toString(); 
+  String toString();
 
   /**
    * Compare to another object.
    */
-  public boolean equals(Object other);
+  boolean equals(Object other);
 
   /**
    * Compute the hash code.
    */
-  public int hashCode();
+  int hashCode();
 
   // +--------------------+------------------------------------------
   // | Additional methods |
@@ -31,11 +31,11 @@ public interface JSONValue {
   /**
    * Write the value as JSON.
    */
-  public void writeJSON(PrintWriter pen);
+  void writeJSON(PrintWriter pen);
 
   /**
    * Get the underlying value.
    */
-  public Object getValue();
+  Object getValue();
 
 } // interface JSONValue

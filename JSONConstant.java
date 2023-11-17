@@ -86,7 +86,7 @@ public class JSONConstant {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    pen.print(this.toString());
+    pen.print(this);
   } // writeJSON(PrintWriter)
 
   /**
