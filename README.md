@@ -1,10 +1,10 @@
-Mini-Project 8: JSON
-====================
+# CSC 207 - JSON Mini Project
 
-A simple JSON parser.
+November 30th, 2023
 
-Implemented by NAME and NAME for CSC-207-01 2023Fa.
+Members: Reed Colloton, Noah Mendola
 
-Acknowledgements:
+Description: A json parser written in Java.
 
-* Skeleton code by SamR
+Additional resources:
+- https://docs.oracle.com/javase/tutorial/index.html
