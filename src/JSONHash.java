@@ -10,7 +10,8 @@ public class JSONHash {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
-  ArrayList<KVPair<JSONString, Object>> hashmap = new ArrayList<>();
+  ArrayList<KVPair<JSONString, JSONValue>> hashmap = new ArrayList<>();
+  Iterator<KVPair<JSONString, JSONValue>> iterator = this.iterator();
 
   // +--------------+------------------------------------------------
   // | Constructors |
@@ -60,7 +61,7 @@ public class JSONHash {
    * Get the underlying value.
    */
   public Iterator<KVPair<JSONString, JSONValue>> getValue() {
-    return this.iterator();
+    return this.iterator;
   } // getValue()
 
   // +-------------------+-------------------------------------------
@@ -71,9 +72,10 @@ public class JSONHash {
    * Get the value associated with a key.
    */
   public JSONValue get(JSONString key) {
-    for (KVPair<JSONString, Object> pair : this.hashmap) {
-      if (pair.value().equals(key.value)) {
-        return (JSONValue) pair.value();
+    while (this.iterator.hasNext()) {
+      KVPair<JSONString, JSONValue> pair = this.iterator.next();
+      if (pair.key().equals(key)) {
+        return pair.value();
       } // if
     } // for
     return null;
@@ -83,22 +85,28 @@ public class JSONHash {
    * Get all the key/value pairs.
    */
   public Iterator<KVPair<JSONString, JSONValue>> iterator() {
-    return null;        // STUB
+    return new Iterator<>() {
+      public boolean hasNext() {
+        return !hashmap.isEmpty();
+      } // hasNext()
+      public KVPair<JSONString, JSONValue> next() {
+        return hashmap.remove(0);
+      } // next()
+    }; // return
   } // iterator()
 
   /**
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-    if (this.get(key) != null) {
-      this.hashmap.add(new KVPair<>(key, value));
-    } else {
-      for (KVPair<JSONString, Object> pair : this.hashmap) {
-        if (pair.value().equals(key.value)) {
+      while (this.iterator.hasNext()) {
+        KVPair<JSONString, JSONValue> pair = this.iterator.next();
+        if (pair.value().equals(value)) {
           pair.set(value);
+          return;
         } // if
       } // for
-    }
+      this.hashmap.add(new KVPair<>(key, value));
   } // set(JSONString, JSONValue)
 
   /**
