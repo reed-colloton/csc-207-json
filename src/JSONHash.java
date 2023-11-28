@@ -33,7 +33,7 @@ public class JSONHash {
    */
   public boolean equals(Object other) {
     return other instanceof JSONHash
-            && this.hashmap.toString().equals(other.toString());
+            && this.toString().equals(other.toString());
   } // equals(Object)
 
   /**
