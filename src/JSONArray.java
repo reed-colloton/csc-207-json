@@ -1,7 +1,6 @@
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.AbstractCollection;
 
 /**
  * JSON arrays.
@@ -25,7 +24,7 @@ public class JSONArray {
    * Build a new array.
    */
   public JSONArray() {
-    this.values = new ArrayList<JSONValue>();
+    this.values = new ArrayList<>();
   } // JSONArray() 
 
   // +-------------------------+-------------------------------------
@@ -36,14 +35,14 @@ public class JSONArray {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    StringBuilder arrlst2str = new StringBuilder();
-    arrlst2str.append("{");
-    for (JSONValue val: values) {
-      arrlst2str.append(", ");
-      arrlst2str.append(val);
+    StringBuilder str = new StringBuilder();
+    str.append("{");
+    for (JSONValue val : values) {
+      str.append(", ");
+      str.append(val);
     }          // STUB
-    arrlst2str.append("}");
-    return arrlst2str.toString();
+    str.append("}");
+    return str.toString();
   } // toString()
 
   /**

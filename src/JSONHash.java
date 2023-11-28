@@ -24,14 +24,15 @@ public class JSONHash {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return "";          // STUB
+    return ""; // STUB
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return other instanceof JSONHash && this.hashmap.toString().equals(((JSONHash) other).toString());
+    return other instanceof JSONHash
+            && this.hashmap.toString().equals(other.toString());
   } // equals(Object)
 
   /**
@@ -52,13 +53,13 @@ public class JSONHash {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.println(this);
   } // writeJSON(PrintWriter)
 
   /**
    * Get the underlying value.
    */
-  public Iterator<KVPair<JSONString,JSONValue>> getValue() {
+  public Iterator<KVPair<JSONString, JSONValue>> getValue() {
     return this.iterator();
   } // getValue()
 
@@ -70,7 +71,7 @@ public class JSONHash {
    * Get the value associated with a key.
    */
   public JSONValue get(JSONString key) {
-    for (KVPair<JSONString, Object> pair: this.hashmap) {
+    for (KVPair<JSONString, Object> pair : this.hashmap) {
       if (pair.value().equals(key.value)) {
         return (JSONValue) pair.value();
       } // if
@@ -79,9 +80,9 @@ public class JSONHash {
   } // get(JSONString)
 
   /**
-   * Get all of the key/value pairs.
+   * Get all the key/value pairs.
    */
-  public Iterator<KVPair<JSONString,JSONValue>> iterator() {
+  public Iterator<KVPair<JSONString, JSONValue>> iterator() {
     return null;        // STUB
   } // iterator()
 
@@ -90,9 +91,9 @@ public class JSONHash {
    */
   public void set(JSONString key, JSONValue value) {
     this.hashmap.f
-    if (!= null) {
-      this.hashmap.add(new KVPair<JSONString,Object>(key, value));
-    } else {
+    if (!=null){
+      this.hashmap.add(new KVPair<>(key, value));
+    } else{
       this.
     }
   } // set(JSONString, JSONValue)

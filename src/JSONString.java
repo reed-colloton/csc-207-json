@@ -33,7 +33,7 @@ public class JSONString {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return this.value;  
+    return this.value;
   } // toString()
 
   /**
@@ -50,7 +50,7 @@ public class JSONString {
     if (this.value == null)
       return 0;
     else
-      return this.value.hashCode();     
+      return this.value.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------

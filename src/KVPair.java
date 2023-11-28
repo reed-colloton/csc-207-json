@@ -1,7 +1,7 @@
 /**
  * Simple, immutable, key/value pairs
  */
-public class KVPair<K,V> {
+public class KVPair<K, V> {
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -36,16 +36,15 @@ public class KVPair<K,V> {
   /**
    * Compare for equality.
    */
-  @SuppressWarnings("unchecked")
   @Override
   public boolean equals(Object other) {
-    return ((other instanceof KVPair) && (this.equals((KVPair<K,V>) other)));
+    return (other instanceof KVPair && this.equals((KVPair<K, V>) other));
   } // equals(Object)
 
   /**
    * Compare for equality.
    */
-  public boolean equals(KVPair<K,V> other) {
+  public boolean equals(KVPair<K, V> other) {
     return ((this.key.equals(other.key)) && (this.value.equals(other.value)));
   } // equals(KVPair<K,V>)
 

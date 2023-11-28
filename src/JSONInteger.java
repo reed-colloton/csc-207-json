@@ -55,7 +55,8 @@ public class JSONInteger {
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return (other instanceof JSONInteger && this.value.equals(((JSONInteger) other).getValue()));        // STUB
+    return (other instanceof JSONInteger
+            && ((JSONInteger) other).getValue().equals(this.value));
   } // equals(Object)
 
   /**
@@ -76,7 +77,7 @@ public class JSONInteger {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    pen.println(this.value.toString());
+    pen.println(this);
   } // writeJSON(PrintWriter)
 
   /**

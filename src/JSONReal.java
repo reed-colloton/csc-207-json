@@ -55,7 +55,8 @@ public class JSONReal {
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return (other instanceof JSONReal && (this.value.compareTo(((JSONReal) other).getValue())) == 0);
+    return (other instanceof JSONReal
+            && (this.value.compareTo(((JSONReal) other).getValue())) == 0);
   } // equals(Object)
 
   /**
@@ -76,7 +77,7 @@ public class JSONReal {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    pen.print(this.value.toString());
+    pen.print(this);
   } // writeJSON(PrintWriter)
 
   /**
