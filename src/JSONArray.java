@@ -49,7 +49,8 @@ public class JSONArray {
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    return other instanceof JSONArray
+            && ((JSONArray) other).getValue().equals(this.values);
   } // equals(Object)
 
   /**
