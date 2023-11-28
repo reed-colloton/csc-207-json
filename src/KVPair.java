@@ -73,4 +73,13 @@ public class KVPair<K, V> {
   public V value() {
     return this.value;
   } // value()
+
+
+  /**
+   * Set the value.
+   */
+  public void set(V value) {
+    this.value = value;
+  } // value()
+
 } // KVPair<K,V>

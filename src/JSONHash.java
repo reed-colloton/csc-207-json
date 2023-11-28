@@ -90,11 +90,14 @@ public class JSONHash {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-    this.hashmap.f
-    if (!=null){
+    if (this.get(key) != null) {
       this.hashmap.add(new KVPair<>(key, value));
-    } else{
-      this.
+    } else {
+      for (KVPair<JSONString, Object> pair : this.hashmap) {
+        if (pair.value().equals(key.value)) {
+          pair.set(value);
+        } // if
+      } // for
     }
   } // set(JSONString, JSONValue)
 
