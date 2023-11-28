@@ -73,7 +73,7 @@ public class JSONHash {
     for (KVPair<JSONString, Object> pair: this.hashmap) {
       if (pair.value().equals(key.value)) {
         return (JSONValue) pair.value();
-      }
+      } // if
     } // for
     return null;
   } // get(JSONString)
