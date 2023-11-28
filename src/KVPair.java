@@ -37,6 +37,7 @@ public class KVPair<K, V> {
    * Compare for equality.
    */
   @Override
+  @SuppressWarnings("unchecked")
   public boolean equals(Object other) {
     return (other instanceof KVPair && this.equals((KVPair<K, V>) other));
   } // equals(Object)
