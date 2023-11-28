@@ -33,21 +33,24 @@ public class JSONString {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return "";          // STUB
+    return this.value;  
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    return (other instanceof JSONString && this.value.equals(other.toString()));        // STUB
   } // equals(Object)
 
   /**
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    if (this.value == null)
+      return 0;
+    else
+      return this.value.hashCode();     
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -58,7 +61,7 @@ public class JSONString {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.println(this.value);
   } // writeJSON(PrintWriter)
 
   /**

@@ -1,6 +1,7 @@
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.AbstractCollection;
 
 /**
  * JSON arrays.
@@ -35,7 +36,14 @@ public class JSONArray {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return "";          // STUB
+    StringBuilder arrlst2str = new StringBuilder();
+    arrlst2str.append("{");
+    for (JSONValue val: values) {
+      arrlst2str.append(", ");
+      arrlst2str.append(val);
+    }          // STUB
+    arrlst2str.append("}");
+    return arrlst2str.toString();
   } // toString()
 
   /**
@@ -49,7 +57,10 @@ public class JSONArray {
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    if (this.values == null)
+      return 0;
+    else
+      return this.values.hashCode();        // STUB
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -60,7 +71,7 @@ public class JSONArray {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-                        // STUB
+    pen.println(this.toString());
   } // writeJSON(PrintWriter)
 
   /**

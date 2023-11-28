@@ -1,4 +1,5 @@
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -9,6 +10,7 @@ public class JSONHash {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
+  ArrayList<KVPair<JSONString, Object>> hashmap = new ArrayList<>();
 
   // +--------------+------------------------------------------------
   // | Constructors |
@@ -29,14 +31,17 @@ public class JSONHash {
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return true;        // STUB
+    return other instanceof JSONHash && this.hashmap.toString().equals(((JSONHash) other).toString());
   } // equals(Object)
 
   /**
    * Compute the hash code.
    */
   public int hashCode() {
-    return 0;           // STUB
+    if (this.hashmap == null)
+      return 0;
+    else
+      return this.hashmap.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -65,7 +70,12 @@ public class JSONHash {
    * Get the value associated with a key.
    */
   public JSONValue get(JSONString key) {
-    return null;        // STUB
+    for (KVPair<JSONString, Object> pair: this.hashmap) {
+      if (pair.value().equals(key.value)) {
+        return (JSONValue) pair.value();
+      }
+    } // for
+    return null;
   } // get(JSONString)
 
   /**
@@ -79,14 +89,19 @@ public class JSONHash {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-                        // STUB
+    this.hashmap.f
+    if (!= null) {
+      this.hashmap.add(new KVPair<JSONString,Object>(key, value));
+    } else {
+      this.
+    }
   } // set(JSONString, JSONValue)
 
   /**
    * Find out how many key/value pairs are in the hash table.
    */
   public int size() {
-    return 0;           // STUB
+    return this.hashmap.size();
   } // size()
 
 } // class JSONHash
