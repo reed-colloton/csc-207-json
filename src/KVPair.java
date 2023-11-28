@@ -10,7 +10,7 @@ public class KVPair<K, V> {
   /**
    * The key. May not be null.
    */
-  private K key;
+  private final K key;
 
   /**
    * The associated value.
