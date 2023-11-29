@@ -10,7 +10,7 @@ public class JSONHash {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
-  ArrayList<KVPair<JSONString, JSONValue>> hashmap = new ArrayList<>();
+  ArrayList<KVPair<JSONString, JSONValue>> jsonValues = new ArrayList<>();
   Iterator<KVPair<JSONString, JSONValue>> iterator = this.iterator();
 
   // +--------------+------------------------------------------------
@@ -45,10 +45,10 @@ public class JSONHash {
    * Compute the hash code.
    */
   public int hashCode() {
-    if (this.hashmap == null)
+    if (this.jsonValues == null)
       return 0;
     else
-      return this.hashmap.hashCode();
+      return this.jsonValues.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -92,11 +92,11 @@ public class JSONHash {
   public Iterator<KVPair<JSONString, JSONValue>> iterator() {
     return new Iterator<>() {
       public boolean hasNext() {
-        return !hashmap.isEmpty();
+        return !jsonValues.isEmpty();
       } // hasNext()
 
       public KVPair<JSONString, JSONValue> next() {
-        return hashmap.remove(0);
+        return jsonValues.remove(0);
       } // next()
     }; // return
   } // iterator()
@@ -112,14 +112,14 @@ public class JSONHash {
         return;
       } // if
     } // for
-    this.hashmap.add(new KVPair<>(key, value));
+    this.jsonValues.add(new KVPair<>(key, value));
   } // set(JSONString, JSONValue)
 
   /**
    * Find out how many key/value pairs are in the hash table.
    */
   public int size() {
-    return this.hashmap.size();
+    return this.jsonValues.size();
   } // size()
 
 } // class JSONHash
