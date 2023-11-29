@@ -28,9 +28,11 @@ public class JSONHash {
     StringBuilder str = new StringBuilder("{ ");
     while (this.iterator.hasNext()) {
       KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      str.append(pair.key()).append(" : ").append(pair.value()).append(", ");
+      str.append(pair.key()).append(" : ");
+      str.append(pair.value()).append(", ");
     } // for
-    return str.append(" }").toString();
+    str.append(" }");
+    return str.toString();
   } // toString()
 
   /**
@@ -107,7 +109,7 @@ public class JSONHash {
   public void set(JSONString key, JSONValue value) {
     while (this.iterator.hasNext()) {
       KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      if (pair.value().equals(value)) {
+      if (pair.key().equals(key)) {
         pair.set(value);
         return;
       } // if
