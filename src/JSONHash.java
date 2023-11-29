@@ -25,7 +25,12 @@ public class JSONHash {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    return ""; // STUB
+    StringBuilder str = new StringBuilder("{ ");
+    while (this.iterator.hasNext()) {
+      KVPair<JSONString, JSONValue> pair = this.iterator.next();
+      str.append(pair.key()).append(" : ").append(pair.value()).append(", ");
+    } // for
+    return str.append(" }").toString();
   } // toString()
 
   /**
@@ -89,6 +94,7 @@ public class JSONHash {
       public boolean hasNext() {
         return !hashmap.isEmpty();
       } // hasNext()
+
       public KVPair<JSONString, JSONValue> next() {
         return hashmap.remove(0);
       } // next()
@@ -99,14 +105,14 @@ public class JSONHash {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-      while (this.iterator.hasNext()) {
-        KVPair<JSONString, JSONValue> pair = this.iterator.next();
-        if (pair.value().equals(value)) {
-          pair.set(value);
-          return;
-        } // if
-      } // for
-      this.hashmap.add(new KVPair<>(key, value));
+    while (this.iterator.hasNext()) {
+      KVPair<JSONString, JSONValue> pair = this.iterator.next();
+      if (pair.value().equals(value)) {
+        pair.set(value);
+        return;
+      } // if
+    } // for
+    this.hashmap.add(new KVPair<>(key, value));
   } // set(JSONString, JSONValue)
 
   /**
