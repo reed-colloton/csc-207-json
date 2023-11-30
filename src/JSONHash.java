@@ -10,7 +10,7 @@ public class JSONHash {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
-  ArrayList<KVPair<JSONString, JSONValue>> jsonValues = new ArrayList<>();
+  ArrayList<KVPair<JSONString, JSONValue>> hashmap = new ArrayList<>();
   Iterator<KVPair<JSONString, JSONValue>> iterator = this.iterator();
 
   // +--------------+------------------------------------------------
@@ -47,10 +47,10 @@ public class JSONHash {
    * Compute the hash code.
    */
   public int hashCode() {
-    if (this.jsonValues == null)
+    if (this.hashmap == null)
       return 0;
     else
-      return this.jsonValues.hashCode();
+      return this.hashmap.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -79,13 +79,6 @@ public class JSONHash {
    * Get the value associated with a key.
    */
   public JSONValue get(JSONString key) {
-    while (this.iterator.hasNext()) {
-      KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      if (pair.key().equals(key)) {
-        return pair.value();
-      } // if
-    } // for
-    return null;
   } // get(JSONString)
 
   /**
@@ -94,11 +87,11 @@ public class JSONHash {
   public Iterator<KVPair<JSONString, JSONValue>> iterator() {
     return new Iterator<>() {
       public boolean hasNext() {
-        return !jsonValues.isEmpty();
+        return !hashmap.isEmpty();
       } // hasNext()
 
       public KVPair<JSONString, JSONValue> next() {
-        return jsonValues.remove(0);
+        return hashmap.remove(0);
       } // next()
     }; // return
   } // iterator()
@@ -107,21 +100,13 @@ public class JSONHash {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-    while (this.iterator.hasNext()) {
-      KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      if (pair.key().equals(key)) {
-        pair.set(value);
-        return;
-      } // if
-    } // for
-    this.jsonValues.add(new KVPair<>(key, value));
   } // set(JSONString, JSONValue)
 
   /**
    * Find out how many key/value pairs are in the hash table.
    */
   public int size() {
-    return this.jsonValues.size();
+    return this.hashmap.size();
   } // size()
 
 } // class JSONHash
