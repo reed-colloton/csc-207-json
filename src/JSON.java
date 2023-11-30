@@ -62,8 +62,12 @@ public class JSON {
     ch = skipWhitespace(source);
     if (-1 == ch) {
       throw new ParseException("Unexpected end of file", pos);
+    } // if
+    switch (ch) {
+      case '{' -> {}
+      case '\"' -> {}
+      default -> throw new ParseException("Unexpected character: " + ch, pos);
     }
-    // STUB
     throw new ParseException("Unimplemented", pos);
   } // parseKernel
 
