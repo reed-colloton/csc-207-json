@@ -79,6 +79,7 @@ public class JSONHash {
    * Get the value associated with a key.
    */
   public JSONValue get(JSONString key) {
+    return null; // STUB
   } // get(JSONString)
 
   /**
@@ -100,6 +101,7 @@ public class JSONHash {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
+    // STUB
   } // set(JSONString, JSONValue)
 
   /**
