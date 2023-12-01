@@ -60,7 +60,7 @@ public class JSONArray implements JSONValue  {
     if (this.values == null)
       return 0;
     else
-      return this.values.hashCode();        // STUB
+      return this.values.hashCode();
   } // hashCode()
 
   // +--------------------+------------------------------------------
