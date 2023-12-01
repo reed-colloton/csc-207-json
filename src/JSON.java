@@ -69,6 +69,7 @@ public class JSON {
       case '\"' -> parseString(source);
       case '[' -> parseArray(source);
       case '{' -> parseHash(source);
+      case '}', ']' -> null;
       default -> parseNumberOrConstant(ch, source);
     }; // switch
   } // parseKernel
@@ -118,17 +119,28 @@ public class JSON {
   /**
    * Parse a JSONArray
    */
-  private static JSONArray parseArray(Reader source) {
-    // parseKernel() until ']' //
-    return null;
+  private static JSONArray parseArray(Reader source) throws IOException, ParseException {
+    JSONArray jsonArray = new JSONArray();
+    JSONValue value = parseKernel(source);
+    while (value != null) {
+      jsonArray.add(value);
+      value = parseKernel(source);
+    } // while
+    return jsonArray;
   } // parseArray()
 
   /**
    * Parse a JSONHash
    */
-  private static JSONValue parseHash(Reader source) {
-    // parseKernel() until '}' //
-    return null;
+  private static JSONValue parseHash(Reader source) throws ParseException, IOException {
+    JSONHash jsonHash = new JSONHash();
+    JSONValue value = parseKernel(source);
+    // TODO: need logic to handle keys and values " : "
+    while (value != null) {
+      jsonHash.set(null, null);
+//      value = parseKernel(source);
+    } // while
+    return jsonHash;
   } // parseHash()
 
   /**
