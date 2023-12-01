@@ -2,7 +2,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.text.ParseException;
 
 /**
@@ -90,8 +90,8 @@ public class JSON {
     } catch (NumberFormatException ignored) {
     } // try/catch
     try {
-      BigInteger n = new BigInteger(value);
-      return new JSONInteger(n);
+      BigDecimal n = new BigDecimal(value);
+      return new JSONReal(n);
     } catch (NumberFormatException ignored) {
     } // try/catch
     throw new ParseException("Invalid number or constant", pos);
