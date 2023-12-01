@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 /**
  * A simple experiment with probed hash tables.
  */
-public class ChainedHashTableExperiments {
+public class ProbedHashTableExperiments {
 
   // +------+------------------------------------------------------------
   // | Main |
@@ -23,8 +23,8 @@ public class ChainedHashTableExperiments {
     }; // new Reporter()
 
     // Create a new hash table
-    ChainedHashTable<String, String> htab =
-        new ChainedHashTable<String, String>(rept);
+    ProbedHashTable<String, String> htab =
+        new ProbedHashTable<String, String>(rept);
 
     // Most of the time, we don't care about the basic calls
     htab.reportBasicCalls(false);
@@ -37,4 +37,4 @@ public class ChainedHashTableExperiments {
     // HashTableExperiments.removeExpt(pen, htab);
   } // main(String[])
 
-} // class ChainedHashTableExperiments
+} // class ProbedHashTableExperiments

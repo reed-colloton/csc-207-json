@@ -54,6 +54,8 @@ public class JSON {
   // | Local helpers |
   // +---------------+
 
+  static JSONValue parseNumber() 
+
   /**
    * Parse JSON from a reader, keeping track of the current position
    */
@@ -64,10 +66,17 @@ public class JSON {
       throw new ParseException("Unexpected end of file", pos);
     } // if
     switch (ch) {
-      case '{' -> {}
-      case '\"' -> {}
-      default -> throw new ParseException("Unexpected character: " + ch, pos);
-    }
+      case '{' -> parseHash();
+      case '\"' -> parseString();
+      case '[' -> parseArray();
+      case 'T', 'F', 'N' -> parseConstant();
+      default -> {
+        if (ch <= '9' && ch >= '0')
+          parseNumber();
+        else
+          throw new ParseException("Unexpected character: " + ch, pos);
+        }
+    } // switch
     throw new ParseException("Unimplemented", pos);
   } // parseKernel
 
