@@ -71,7 +71,7 @@ public class JSON {
       case 'T', 'F', 'N' -> parseConstant(source);
       default -> {
         if (ch <= '9' && ch >= '0')
-          parseNumber();
+          parseNumber(ch, source);
         else
           throw new ParseException("Unexpected character: " + ch, pos);
         }
@@ -88,6 +88,7 @@ public class JSON {
       if (ch == '\\') escaped = !escaped;
       str.append(ch);
     } while (ch != '"' || escaped);
+    str.deleteCharAt(str.length() - 1);
     return new JSONString(str.toString());
   } // parseString
 
