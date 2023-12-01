@@ -57,6 +57,22 @@ public class JSON {
   // | Local helpers |
   // +---------------+
 
+  /**
+   * Parse JSON from a reader, keeping track of the current position
+   */
+  static JSONValue parseKernel(Reader source) throws ParseException, IOException {
+    int ch = skipWhitespace(source);
+    if (-1 == ch) {
+      throw new ParseException("Unexpected end of file", pos);
+    } // if
+    return switch (ch) {
+      case '{' -> parseHash(source);
+      case '\"' -> parseString(source);
+      case '[' -> parseArray(source);
+      default -> parseNumberOrConstant(ch, source);
+    }; // switch
+  } // parseKernel
+
   static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
     StringBuilder str = new StringBuilder(ch);
     do {
@@ -81,27 +97,15 @@ public class JSON {
     throw new ParseException("Invalid number or constant", pos);
   } // parseNumberOrConstant
 
-  /**
-   * Parse JSON from a reader, keeping track of the current position
-   */
-  static JSONValue parseKernel(Reader source) throws ParseException, IOException {
-    int ch = skipWhitespace(source);
-    if (-1 == ch) {
-      throw new ParseException("Unexpected end of file", pos);
-    } // if
-    return switch (ch) {
-      case '{' -> parseHash(source);
-      case '\"' -> parseString(source);
-      case '[' -> parseArray(source);
-      default -> {
-        parseNumberOrConstant(ch, source);
-      } // default
-    }; // switch
-  } // parseKernel
+  private static JSONValue parseHash(Reader source) {
+    // parseKernel() until '}' //
+    return null;
+  } // parseHash()
 
   private static JSONArray parseArray(Reader source) {
     // parseKernel() until ']' //
-  }
+    return null;
+  } // parseArray()
 
   private static JSONString parseString(Reader source) throws IOException {
     int ch;
