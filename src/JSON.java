@@ -74,23 +74,23 @@ public class JSON {
   } // parseKernel
 
   static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
-    StringBuilder str = new StringBuilder(ch);
+    StringBuilder chars = new StringBuilder(ch);
     do {
       ch = source.read();
-      str.append(ch);
+      chars.append(ch);
     } while (!isWhitespace(ch));
-    int lastChar = str.length() - 1;
-    if (str.charAt(lastChar) == ',') {
-      str.deleteCharAt(lastChar);
+    int lastChar = chars.length() - 1;
+    if (chars.charAt(lastChar) == ',') {
+      chars.deleteCharAt(lastChar);
     } // if
-    String value = str.toString();
+    String str = chars.toString();
     try {
-      int n = Integer.parseInt(value);
+      int n = Integer.parseInt(str);
       return new JSONInteger(n);
     } catch (NumberFormatException ignored) {
     } // try/catch
     try {
-      BigDecimal n = new BigDecimal(value);
+      BigDecimal n = new BigDecimal(str);
       return new JSONReal(n);
     } catch (NumberFormatException ignored) {
     } // try/catch
