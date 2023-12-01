@@ -2,10 +2,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.text.ParseException;
 
 /**
  * Utilities for our simple implementation of JSON.
+ *
+ * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
 public class JSON {
   // +---------------+-----------------------------------------------
@@ -54,32 +57,29 @@ public class JSON {
   // | Local helpers |
   // +---------------+
 
-  static JSONValue parseNumber(Reader source) {
-    int pos = 0;
-    int ch;
-    do {
-      ch = source.read(); 
-    } while (ch)
-
-  }
-
-  static JSONValue parseConstant(int ch, Reader source) {
-    StringBuilder jsonVal = new StringBuilder(ch);
+  static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
+    StringBuilder str = new StringBuilder(ch);
     do {
       ch = source.read();
-      jsonVal.append(ch);
-    } while (isWhitespace(ch) == false);
-    String JVstring = jsonVal.toString();
-    if (JVstring == null) {
-        return 
-    }
+      str.append(ch);
+    } while (!isWhitespace(ch));
+    int lastChar = str.length() - 1;
+    if (str.charAt(lastChar) == ',') {
+      str.deleteCharAt(lastChar);
+    } // if
+    String value = str.toString();
     try {
-        int I = Integer.parseInt(strNum);
-        return new JSONInteger(I);
-    } catch (NumberFormatException nfe) {}
-    return 
- 
-    };
+      int n = Integer.parseInt(value);
+      return new JSONInteger(n);
+    } catch (NumberFormatException ignored) {
+    } // try/catch
+    try {
+      BigInteger n = new BigInteger(value);
+      return new JSONInteger(n);
+    } catch (NumberFormatException ignored) {
+    } // try/catch
+    throw new ParseException("Invalid number or constant", pos);
+  } // parseNumberOrConstant
 
   /**
    * Parse JSON from a reader, keeping track of the current position
@@ -89,19 +89,14 @@ public class JSON {
     if (-1 == ch) {
       throw new ParseException("Unexpected end of file", pos);
     } // if
-    switch (ch) {
+    return switch (ch) {
       case '{' -> parseHash(source);
       case '\"' -> parseString(source);
       case '[' -> parseArray(source);
-      case 'T', 'F', 'N' -> parseConstant(source);
       default -> {
-        if (ch <= '9' && ch >= '0')
-          parseNumber(ch, source);
-        else
-          throw new ParseException("Unexpected character: " + ch, pos);
-        }
-    } // switch
-    throw new ParseException("Unimplemented", pos);
+        parseNumberOrConstant(ch, source);
+      } // default
+    }; // switch
   } // parseKernel
 
   private static JSONArray parseArray(Reader source) {
