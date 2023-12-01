@@ -66,13 +66,16 @@ public class JSON {
       throw new ParseException("Unexpected end of file", pos);
     } // if
     return switch (ch) {
-      case '{' -> parseHash(source);
       case '\"' -> parseString(source);
       case '[' -> parseArray(source);
+      case '{' -> parseHash(source);
       default -> parseNumberOrConstant(ch, source);
     }; // switch
   } // parseKernel
 
+  /**
+   * Parse a JSONInteger, JSONReal, or JSONConstant
+   */
   static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
     StringBuilder chars = new StringBuilder(ch);
     do {
@@ -96,16 +99,9 @@ public class JSON {
     throw new ParseException("Invalid number or constant", pos);
   } // parseNumberOrConstant
 
-  private static JSONValue parseHash(Reader source) {
-    // parseKernel() until '}' //
-    return null;
-  } // parseHash()
-
-  private static JSONArray parseArray(Reader source) {
-    // parseKernel() until ']' //
-    return null;
-  } // parseArray()
-
+  /**
+   * Parse a JSONString
+   */
   private static JSONString parseString(Reader source) throws IOException {
     int ch;
     boolean escaped = false;
@@ -118,6 +114,22 @@ public class JSON {
     str.deleteCharAt(str.length() - 1);
     return new JSONString(str.toString());
   } // parseString
+
+  /**
+   * Parse a JSONArray
+   */
+  private static JSONArray parseArray(Reader source) {
+    // parseKernel() until ']' //
+    return null;
+  } // parseArray()
+
+  /**
+   * Parse a JSONHash
+   */
+  private static JSONValue parseHash(Reader source) {
+    // parseKernel() until '}' //
+    return null;
+  } // parseHash()
 
   /**
    * Get the next character from source, skipping over whitespace.
