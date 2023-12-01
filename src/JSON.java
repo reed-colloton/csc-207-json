@@ -85,8 +85,7 @@ public class JSON {
    * Parse JSON from a reader, keeping track of the current position
    */
   static JSONValue parseKernel(Reader source) throws ParseException, IOException {
-    int ch;
-    ch = skipWhitespace(source);
+    int ch = skipWhitespace(source);
     if (-1 == ch) {
       throw new ParseException("Unexpected end of file", pos);
     } // if
@@ -104,6 +103,19 @@ public class JSON {
     } // switch
     throw new ParseException("Unimplemented", pos);
   } // parseKernel
+
+  private static JSONValue parseString(Reader source) throws IOException {
+    int ch;
+    boolean escaped = false;
+    StringBuilder str = new StringBuilder();
+    do {
+      ch = source.read();
+      if (ch == '\\') escaped = !escaped;
+      str.append(ch);
+    } while (ch != '"' || escaped);
+    str.deleteCharAt(str.length() - 1);
+    return new JSONString(str.toString());
+  } // parseString
 
   /**
    * Get the next character from source, skipping over whitespace.

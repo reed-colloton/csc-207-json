@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * @author Reed Colloton, Noah Mendola
  */
-public class JSONHash {
+public class JSONHash implements JSONValue  {
 
   // +--------+------------------------------------------------------
   // | Fields |
