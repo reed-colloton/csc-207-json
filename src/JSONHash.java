@@ -13,9 +13,10 @@ public class JSONHash implements JSONValue {
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
-  private final int initialLength = 32;
   private final double PROBE_OFFSET = 17;
-  KVPair<JSONString, JSONValue>[] hashmap = new KVPair[initialLength];
+  private final double LOAD_FACTOR = 0.5;
+  private int size = 32;
+  KVPair<JSONString, JSONValue>[] hashmap = new KVPair[size];
   private int values = 0;
   Iterator<KVPair<JSONString, JSONValue>> iterator = this.iterator();
 
@@ -118,13 +119,14 @@ public class JSONHash implements JSONValue {
    * Set the value associated with a key.
    */
   public void set(JSONString key, JSONValue value) {
-    if (this.values == this.hashmap.length) expand();
+    if (this.values > this.size * LOAD_FACTOR) expand();
     this.hashmap[this.find(key)] = new KVPair<>(key, value);
   } // set(JSONString, JSONValue)
 
   private void expand() {
     KVPair<JSONString, JSONValue>[] old = this.hashmap;
-    this.hashmap = new KVPair[this.hashmap.length * 2];
+    this.size = this.size * 2;
+    this.hashmap = new KVPair[this.size];
     for (KVPair<JSONString, JSONValue> pair : old) {
       set(pair.key(), pair.value());
     } // for
@@ -134,7 +136,7 @@ public class JSONHash implements JSONValue {
    * Find out how many key/value pairs are in the hash table.
    */
   public int size() {
-    return this.hashmap.length;
+    return this.size;
   } // size()
 
   /**
@@ -142,11 +144,11 @@ public class JSONHash implements JSONValue {
    * return the index of an entry we can use to store that key.
    */
   private int find(JSONString key) {
-    int hashCode = Math.abs(key.hashCode()) % this.hashmap.length;
+    int hashCode = Math.abs(key.hashCode()) % this.size;
     while (this.hashmap[hashCode] != null
             || (this.hashmap[hashCode]) != null
             && !this.hashmap[hashCode].key().equals(key)) {
-      hashCode += (int) (this.PROBE_OFFSET % this.hashmap.length);
+      hashCode += (int) (this.PROBE_OFFSET % this.size);
     } // while
     return hashCode;
   } // find(K)
