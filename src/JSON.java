@@ -111,7 +111,11 @@ public class JSON {
     throw new ParseException("Unimplemented", pos);
   } // parseKernel
 
-  private static JSONValue parseString(Reader source) throws IOException {
+  private static JSONArray parseArray(Reader source) {
+    // parseKernel() until ']' //
+  }
+
+  private static JSONString parseString(Reader source) throws IOException {
     int ch;
     boolean escaped = false;
     StringBuilder str = new StringBuilder();
