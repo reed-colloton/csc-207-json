@@ -76,8 +76,7 @@ public class JSON {
   static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
     StringBuilder chars = new StringBuilder(ch);
     do {
-      ch = source.read();
-      chars.append(ch);
+      chars.append(source.read());
     } while (!isWhitespace(ch));
     int lastChar = chars.length() - 1;
     if (chars.charAt(lastChar) == ',') {
