@@ -4,7 +4,7 @@ import java.io.PrintWriter;
  * A simple set of experiments using our new hash tables.
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Reed Colloton, Noah Mendola
  */
 public class HashTableExperiments {
 

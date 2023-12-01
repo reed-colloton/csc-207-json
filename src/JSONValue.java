@@ -2,6 +2,8 @@ import java.io.PrintWriter;
 
 /**
  * JSON values.
+ *
+ * @author Samuel Rebelsky
  */
 public interface JSONValue {
 

@@ -6,7 +6,7 @@ import java.util.Iterator;
  * JSON hashes/objects.
  * Hashmap functions based on <a href="https://github.com/rrrr4444/csc207-hash-tables/"/>
  *
- * @author Reed Colloton, Noah Mendola
+ * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
 public class JSONHash implements JSONValue  {
 

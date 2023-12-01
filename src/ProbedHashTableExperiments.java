@@ -2,6 +2,8 @@ import java.io.PrintWriter;
 
 /**
  * A simple experiment with probed hash tables.
+ *
+ * @author Reed Colloton, Noah Mendola
  */
 public class ProbedHashTableExperiments {
 
