@@ -56,7 +56,7 @@ public class JSONHash implements JSONValue  {
     if (this.hashmap == null)
       return 0;
     else
-      return Arrays.hashCode(this.hashmap);
+    return Arrays.hashCode(this.hashmap);
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -120,7 +120,7 @@ public class JSONHash implements JSONValue  {
     if (this.values == this.hashmap.length) expand();
     this.hashmap[this.find(key)] = new KVPair<>(key, value);
   } // set(JSONString, JSONValue)
-
+  
   private void expand() {
     KVPair<JSONString, JSONValue>[] old =  this.hashmap;
     this.hashmap = new KVPair[this.hashmap.length * 2];
@@ -136,7 +136,7 @@ public class JSONHash implements JSONValue  {
     return this.hashmap.length;
   } // size()
 
-  /**
+/**
    * Find the index of the entry with a given key. If there is no such entry,
    * return the index of an entry we can use to store that key.
    */
