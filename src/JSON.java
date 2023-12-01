@@ -74,10 +74,17 @@ public class JSON {
         return 
     }
     try {
-        int I = Integer.parseInt(strNum);
+        int I = Integer.parseInt(JVstring);
         return new JSONInteger(I);
-    } catch (NumberFormatException nfe) {}
-    return 
+    } catch (NumberFormatException nfe) {
+      try {
+        Double I = Double.parseDouble(JVstring)
+        return new JSONReal(I);
+      } catch (Exception e) {
+        return new ParseException
+      }
+    }
+
  
     };
 
