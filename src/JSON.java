@@ -70,9 +70,9 @@ public class JSON {
       jsonVal.append(ch);
     } while (isWhitespace(ch) == false);
     String JVstring = jsonVal.toString();
-    if (JVstring == null) {
-        return 
-    }
+    if (JVstring == "true") return JSONConstant.TRUE;
+    if (JVstring == "false") return JSONConstant.FALSE;
+    if (JVstring == "null") return JSONConstant.NULL;
     try {
         int I = Integer.parseInt(JVstring);
         return new JSONInteger(I);
@@ -100,7 +100,7 @@ public class JSON {
       case '{' -> parseHash(source);
       case '\"' -> parseString(source);
       case '[' -> parseArray(source);
-      case 'T', 'F', 'N' -> parseConstant(source);
+      case 't', 'f', 'n' -> parseConstant(source);
       default -> {
         if (ch <= '9' && ch >= '0')
           parseNumber(ch, source);
@@ -111,11 +111,7 @@ public class JSON {
     throw new ParseException("Unimplemented", pos);
   } // parseKernel
 
-  private static JSONArray parseArray(Reader source) {
-    // parseKernel() until ']' //
-  }
-
-  private static JSONString parseString(Reader source) throws IOException {
+  private static JSONValue parseString(Reader source) throws IOException {
     int ch;
     boolean escaped = false;
     StringBuilder str = new StringBuilder();
