@@ -54,16 +54,27 @@ public class JSON {
   // | Local helpers |
   // +---------------+
 
-  static JSONValue parseNumber(Reader source) {
-    int pos = 0;
-    int ch;
+  static JSONValue parseNumber(int ch, Reader source) throws ParseException, IOException {
+    StringBuilder jsonVal = new StringBuilder(ch);
     do {
-      ch = source.read(); 
-    } while (ch)
-
+      ch = source.read();
+      jsonVal.append(ch);
+    } while (isWhitespace(ch) == false);
+    String JVstring = jsonVal.toString();
+    try {
+        int I = Integer.parseInt(JVstring);
+        return new JSONInteger(I);
+    } catch (NumberFormatException nfe) {
+      try {
+        Double I = Double.parseDouble(JVstring)
+        return new JSONReal(I);
+      } catch (Exception e) {
+        throw new ParseException("Unexpected characters");
+      }
+    }
   }
 
-  static JSONValue parseConstant(int ch, Reader source) {
+  static JSONValue parseConstant(int ch, Reader source) throws IOException {
     StringBuilder jsonVal = new StringBuilder(ch);
     do {
       ch = source.read();
@@ -73,19 +84,6 @@ public class JSON {
     if (JVstring == "true") return JSONConstant.TRUE;
     if (JVstring == "false") return JSONConstant.FALSE;
     if (JVstring == "null") return JSONConstant.NULL;
-    try {
-        int I = Integer.parseInt(JVstring);
-        return new JSONInteger(I);
-    } catch (NumberFormatException nfe) {
-      try {
-        Double I = Double.parseDouble(JVstring)
-        return new JSONReal(I);
-      } catch (Exception e) {
-        return new ParseException
-      }
-    }
-
- 
     };
 
   /**
