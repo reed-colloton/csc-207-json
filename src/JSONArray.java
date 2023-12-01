@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
-public class JSONArray implements JSONValue  {
+public class JSONArray implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |

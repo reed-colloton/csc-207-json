@@ -8,15 +8,15 @@ import java.util.Iterator;
  *
  * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
-public class JSONHash implements JSONValue  {
+public class JSONHash implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
   // +--------+
   private final int initialLength = 32;
-  private int values = 0;
   private final double PROBE_OFFSET = 17;
   KVPair<JSONString, JSONValue>[] hashmap = new KVPair[initialLength];
+  private int values = 0;
   Iterator<KVPair<JSONString, JSONValue>> iterator = this.iterator();
 
   // +--------------+------------------------------------------------
@@ -56,7 +56,7 @@ public class JSONHash implements JSONValue  {
     if (this.hashmap == null)
       return 0;
     else
-    return Arrays.hashCode(this.hashmap);
+      return Arrays.hashCode(this.hashmap);
   } // hashCode()
 
   // +--------------------+------------------------------------------
@@ -94,6 +94,7 @@ public class JSONHash implements JSONValue  {
   public Iterator<KVPair<JSONString, JSONValue>> iterator() {
     return new Iterator<>() {
       private int cursor = 0;
+
       public boolean hasNext() {
         return values != 0;
       } // hasNext()
@@ -120,9 +121,9 @@ public class JSONHash implements JSONValue  {
     if (this.values == this.hashmap.length) expand();
     this.hashmap[this.find(key)] = new KVPair<>(key, value);
   } // set(JSONString, JSONValue)
-  
+
   private void expand() {
-    KVPair<JSONString, JSONValue>[] old =  this.hashmap;
+    KVPair<JSONString, JSONValue>[] old = this.hashmap;
     this.hashmap = new KVPair[this.hashmap.length * 2];
     for (KVPair<JSONString, JSONValue> pair : old) {
       set(pair.key(), pair.value());
@@ -136,7 +137,7 @@ public class JSONHash implements JSONValue  {
     return this.hashmap.length;
   } // size()
 
-/**
+  /**
    * Find the index of the entry with a given key. If there is no such entry,
    * return the index of an entry we can use to store that key.
    */

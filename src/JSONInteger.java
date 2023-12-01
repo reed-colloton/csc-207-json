@@ -6,7 +6,7 @@ import java.math.BigInteger;
  *
  * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
-public class JSONInteger implements JSONValue  {
+public class JSONInteger implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |

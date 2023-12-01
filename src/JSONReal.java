@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  *
  * @author Samuel Rebelsky, Reed Colloton, Noah Mendola
  */
-public class JSONReal implements JSONValue  {
+public class JSONReal implements JSONValue {
 
   // +--------+------------------------------------------------------
   // | Fields |
