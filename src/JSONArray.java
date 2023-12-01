@@ -42,7 +42,7 @@ public class JSONArray implements JSONValue {
     for (JSONValue val : values) {
       str.append(", ");
       str.append(val);
-    }          // STUB
+    } // for
     str.append("}");
     return str.toString();
   } // toString()

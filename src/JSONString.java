@@ -42,7 +42,7 @@ public class JSONString implements JSONValue {
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    return (other instanceof JSONString && this.value.equals(other.toString()));        // STUB
+    return (other instanceof JSONString && this.value.equals(other.toString()));
   } // equals(Object)
 
   /**
