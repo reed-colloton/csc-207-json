@@ -54,7 +54,32 @@ public class JSON {
   // | Local helpers |
   // +---------------+
 
-  static JSONValue parseNumber() 
+  static JSONValue parseNumber(Reader source) {
+    int pos = 0;
+    int ch;
+    do {
+      ch = source.read(); 
+    } while (ch)
+
+  }
+
+  static JSONValue parseConstant(int ch, Reader source) {
+    StringBuilder jsonVal = new StringBuilder(ch);
+    do {
+      ch = source.read();
+      jsonVal.append(ch);
+    } while (isWhitespace(ch) == false);
+    String JVstring = jsonVal.toString();
+    if (JVstring == null) {
+        return 
+    }
+    try {
+        int I = Integer.parseInt(strNum);
+        return new JSONInteger(I);
+    } catch (NumberFormatException nfe) {}
+    return 
+ 
+    };
 
   /**
    * Parse JSON from a reader, keeping track of the current position
