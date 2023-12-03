@@ -155,6 +155,21 @@ public class JSON {
     return jsonHash;
    }// parseHash()
 
+  private static JSONValue parseHashLoop(Reader source) throws ParseException, IOException {
+    JSONHash jsonHash = new JSONHash();
+    int ch;
+    do {
+      JSONString key = parseString(source);
+      if (skipWhitespace(source) != ':') {
+        throw new ParseException("Expected ':'", pos);
+      } // if
+      JSONValue value = parseKernel(source);
+      jsonHash.set(key, value);
+      ch = skipWhitespace(source);
+    } while (ch == ',');
+    return jsonHash;
+} // parseHash()
+
   /**
    * Get the next character from source, skipping over whitespace.
    */
