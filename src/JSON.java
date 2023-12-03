@@ -131,17 +131,29 @@ public class JSON {
 
   /**
    * Parse a JSONHash
-   */
+   * */
   private static JSONValue parseHash(Reader source) throws ParseException, IOException {
     JSONHash jsonHash = new JSONHash();
+    // Parse key
+    JSONString key = parseString(source);
+    // Expect colon
+    int ch = skipWhitespace(source);
+    if (ch != ':') {
+      throw new ParseException("invalid format at ", pos);
+    }
+    // Parse value
     JSONValue value = parseKernel(source);
-    // TODO: need logic to handle keys and values " : "
-    while (value != null) {
-      jsonHash.set(null, null);
-//      value = parseKernel(source);
-    } // while
+    // Add key-value pair
+    jsonHash.set(key, value);
+    // Check for more pairs
+    ch = skipWhitespace(source);
+    if (ch == ',') {
+      parseHash(source); //back to the top
+    } else if (ch != '}') {
+      throw new ParseException("invalid ending at ", pos);
+    }
     return jsonHash;
-  } // parseHash()
+   }// parseHash()
 
   /**
    * Get the next character from source, skipping over whitespace.
