@@ -37,14 +37,19 @@ public class JSONArray implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    StringBuilder str = new StringBuilder();
-    str.append("{");
-    for (JSONValue val : values) {
-      str.append(", ");
-      str.append(val);
+    if (this.values.isEmpty()) {
+      return "[ ]";
+    } // if
+    StringBuilder chars = new StringBuilder();
+    chars.append("[");
+    for (JSONValue val : this.values) {
+      chars.append(val);
+      chars.append(", ");
     } // for
-    str.append("}");
-    return str.toString();
+    int length = chars.length();
+    chars.delete(length - 2, length);
+    chars.append("]");
+    return chars.toString();
   } // toString()
 
   /**

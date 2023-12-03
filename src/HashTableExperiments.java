@@ -12,8 +12,8 @@ public class HashTableExperiments {
 
   public static void main(String[] args) throws ParseException, IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
-    JSONValue fileJSONs = JSON.parseFile("/home/mendolan/CSC207/miniprojects/csc-207-json/src/tests/test3.json");
-    pen.println("Retrieved Value" + fileJSONs.getValue());
+    JSONValue fileJSONs = JSON.parseFile("src/tests/test.json");
+    pen.println("Retrieved Value:\n" + fileJSONs);
   } //main(PrintWriter)
 
 } // class HashTableExpt

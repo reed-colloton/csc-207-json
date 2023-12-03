@@ -1,6 +1,5 @@
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -33,14 +32,19 @@ public class JSONHash implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    StringBuilder str = new StringBuilder("{ ");
+    if (this.values == 0) {
+      return "{ }";
+    } // if
+    StringBuilder chars = new StringBuilder("{ ");
     while (this.iterator.hasNext()) {
       KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      str.append(pair.key()).append(" : ");
-      str.append(pair.value()).append(", ");
+      chars.append(pair.key()).append(" : ");
+      chars.append(pair.value()).append(", ");
     } // for
-    str.append(" }");
-    return str.toString();
+    int length = chars.length();
+    chars.delete(length - 2, length);
+    chars.append(" }");
+    return chars.toString();
   } // toString()
 
   /**
@@ -121,7 +125,11 @@ public class JSONHash implements JSONValue {
    */
   public void set(JSONString key, JSONValue value) {
     if (this.values > (this.size * LOAD_FACTOR)) expand();
-    this.hashmap[this.find(key)] = new KVPair<>(key, value);
+    int index = this.find(key);
+    if (this.hashmap[index] == null) {
+      ++values;
+    } // if
+    this.hashmap[index] = new KVPair<>(key, value);
   } // set(JSONString, JSONValue)
 
   private void expand() {
@@ -154,38 +162,5 @@ public class JSONHash implements JSONValue {
     return hashCode;
   } // find(K)
 
-//  int find(JSONString key) {
-//    return find(key, ((int) this.PROBE_OFFSET));
-//  } // find(K)
-//
-//  @SuppressWarnings("unchecked")
-//  int find(JSONString key, int offset) {
-//    final int initial = Math.abs(key.hashCode()) % this.hashmap.length;
-//    int potentialIndex = initial;
-//    do {
-//      if (this.hashmap[potentialIndex] != null) {
-//        // the cell is full
-//        if (!((KVPair<JSONString, JSONValue>) this.hashmap[potentialIndex]).key().equals(key)) {
-//          // key doesnt match
-//          potentialIndex += offset;
-//          potentialIndex %= this.hashmap.length;
-//        }
-//        else {
-//          // the key matches
-//          return potentialIndex;
-//        }
-//      } else {
-//        // cell is not full, we are free to put it in
-//        return potentialIndex;
-//      }
-//    } while (potentialIndex != initial);
-//
-//    if (offset % PROBE_OFFSET == 0) {
-//      // its a multiple of probe
-//      return -1;
-//    }
-//    // we have looped back around, try a different offset
-//    return find(key, offset + 1);
-//  }
 
 } // class JSONHash
