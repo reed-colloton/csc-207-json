@@ -78,14 +78,14 @@ public class JSON {
    * Parse a JSONInteger, JSONReal, or JSONConstant
    */
   static JSONValue parseNumberOrConstant(int ch, Reader source) throws IOException, ParseException {
-    StringBuilder chars = new StringBuilder(ch);
+    StringBuilder chars = new StringBuilder();
+    chars.append((char) ch);
     do {
-      chars.append(source.read());
-    } while (!isWhitespace(ch));
+      ch = source.read();
+      chars.append((char) ch);
+    } while (!isWhitespace(ch) && ch != ',');
     int lastChar = chars.length() - 1;
-    if (chars.charAt(lastChar) == ',') {
-      chars.deleteCharAt(lastChar);
-    } // if
+    chars.deleteCharAt(lastChar);
     String str = chars.toString();
     try {
       int n = Integer.parseInt(str);
@@ -97,7 +97,12 @@ public class JSON {
       return new JSONReal(n);
     } catch (NumberFormatException ignored) {
     } // try/catch
-    throw new ParseException("Invalid number or constant", pos);
+    return switch (str) {
+      case "true" -> JSONConstant.TRUE;
+      case "false" -> JSONConstant.FALSE;
+      case "null" -> JSONConstant.NULL;
+      default -> throw new ParseException("Invalid number or constant", pos);
+    };
   } // parseNumberOrConstant
 
   /**
@@ -110,7 +115,7 @@ public class JSON {
     do {
       ch = source.read();
       if (ch == '\\') escaped = !escaped;
-      str.append(ch);
+      str.append((char) ch);
     } while (ch != '"' || escaped);
     str.deleteCharAt(str.length() - 1);
     return new JSONString(str.toString());
@@ -130,32 +135,9 @@ public class JSON {
   } // parseArray()
 
   /**
-   * Parse a JSONHash
-   * */
+   * Parse JSONHash
+   */
   private static JSONValue parseHash(Reader source) throws ParseException, IOException {
-    JSONHash jsonHash = new JSONHash();
-    // Parse key
-    JSONString key = parseString(source);
-    // Expect colon
-    int ch = skipWhitespace(source);
-    if (ch != ':') {
-      throw new ParseException("invalid format at ", pos);
-    }
-    // Parse value
-    JSONValue value = parseKernel(source);
-    // Add key-value pair
-    jsonHash.set(key, value);
-    // Check for more pairs
-    ch = skipWhitespace(source);
-    if (ch == ',') {
-      parseHash(source); //back to the top
-    } else if (ch != '}') {
-      throw new ParseException("invalid ending at ", pos);
-    }
-    return jsonHash;
-   }// parseHash()
-
-  private static JSONValue parseHashLoop(Reader source) throws ParseException, IOException {
     JSONHash jsonHash = new JSONHash();
     int ch;
     while (skipWhitespace(source) != '}') {
@@ -167,7 +149,7 @@ public class JSON {
       jsonHash.set(key, value);
     } // while
     return jsonHash;
-} // parseHash()
+  } // parseHash()
 
   /**
    * Get the next character from source, skipping over whitespace.
