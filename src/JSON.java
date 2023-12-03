@@ -158,15 +158,14 @@ public class JSON {
   private static JSONValue parseHashLoop(Reader source) throws ParseException, IOException {
     JSONHash jsonHash = new JSONHash();
     int ch;
-    do {
+    while (skipWhitespace(source) != '}') {
       JSONString key = parseString(source);
       if (skipWhitespace(source) != ':') {
         throw new ParseException("Expected ':'", pos);
       } // if
       JSONValue value = parseKernel(source);
       jsonHash.set(key, value);
-      ch = skipWhitespace(source);
-    } while (ch == ',');
+    } // while
     return jsonHash;
 } // parseHash()
 
