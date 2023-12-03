@@ -13,7 +13,7 @@ public class HashTableExperiments {
   public static void main(String[] args) throws ParseException, IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
     JSONValue fileJSONs = JSON.parseFile("src/tests/test.json");
-    pen.println("Retrieved Value: " + fileJSONs);
+    pen.println("Retrieved Value:\n" + fileJSONs);
   } //main(PrintWriter)
 
 } // class HashTableExpt

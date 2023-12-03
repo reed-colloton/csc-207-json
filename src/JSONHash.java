@@ -32,14 +32,19 @@ public class JSONHash implements JSONValue {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    StringBuilder str = new StringBuilder("{ ");
+    if (this.values == 0) {
+      return "{ }";
+    } // if
+    StringBuilder chars = new StringBuilder("{ ");
     while (this.iterator.hasNext()) {
       KVPair<JSONString, JSONValue> pair = this.iterator.next();
-      str.append(pair.key()).append(" : ");
-      str.append(pair.value()).append(", ");
+      chars.append(pair.key()).append(" : ");
+      chars.append(pair.value()).append(", ");
     } // for
-    str.append(" }");
-    return str.toString();
+    int length = chars.length();
+    chars.delete(length - 2, length);
+    chars.append(" }");
+    return chars.toString();
   } // toString()
 
   /**
@@ -156,5 +161,6 @@ public class JSONHash implements JSONValue {
     } // while
     return hashCode;
   } // find(K)
+
 
 } // class JSONHash
