@@ -12,11 +12,10 @@ public class HashTableExperiments {
   public static void main(String[] args) throws ParseException, IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
     pen.println("Running...");
-    pen.println("Retrieved Value" + JSON.parseFile("src/tests/test1.json"));
-    pen.println("Retrieved Value" + JSON.parseFile("src/tests/test3.json"));
-    pen.println("Retrieved Value" + JSON.parseFile("src/tests/test4.json"));
-    pen.println("Retrieved Value" + JSON.parseFile("src/tests/test5.json"));
-    pen.println("Retrieved Value" + JSON.parseFile("src/tests/test6.json"));
+    pen.println("JSON 1:\n" + JSON.parseFile("src/tests/test1.json"));
+    pen.println("JSON 2:\n" + JSON.parseFile("src/tests/test2.json"));
+    pen.println("JSON 3:\n" + JSON.parseFile("src/tests/test3.json"));
+    pen.println("JSON 4:\n" + JSON.parseFile("src/tests/test4.json"));
   } //main(PrintWriter)
 
 } // class HashTableExpt
